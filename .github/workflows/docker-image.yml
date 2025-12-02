@@ -10,18 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Check out repository
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
+      # 2. Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      # 3. Build and push image
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/zatte-rene-bot:latest
+          tags: ${{ secrets.DOCKER_USER }}/zatte-rene-bot:latest
