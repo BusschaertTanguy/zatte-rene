@@ -8,7 +8,10 @@ const {
   AudioPlayerStatus,
   NoSubscriberBehavior,
   StreamType,
+  generateDependencyReport,
 } = require("@discordjs/voice");
+
+console.log(generateDependencyReport());
 
 const fs = require("fs");
 const path = require("path");
