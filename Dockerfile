@@ -19,12 +19,15 @@ FROM node:24-slim AS runner
 
 WORKDIR /app
 
-# Install system dependencies for audio
+# Install Audio dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ffmpeg \
-        libopus0 \
-    && rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+    ffmpeg \
+    libopus0 \
+    libopus-dev \
+    libsodium23 \
+    libsodium-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy built app and node_modules
 COPY --from=builder /app ./
