@@ -13,6 +13,21 @@ const ffmpeg = require("@ffmpeg-installer/ffmpeg");
 const fs = require("fs");
 const path = require("path");
 
+const getRandomSound = () => {
+  const soundsDirectory = path.join(__dirname, "sounds");
+
+  const files = fs
+    .readdirSync(soundsDirectory)
+    .filter((f) => f.endsWith(".mp3"));
+
+  if (!files.length) {
+    throw new Error("No .mp3 files found in sounds directory");
+  }
+
+  const randomFile = files[Math.floor(Math.random() * files.length)];
+  return path.join(soundsDirectory, randomFile);
+};
+
 const TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 
@@ -41,20 +56,12 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === playCommandName) {
-    // TODO: Get random sound name
-    const soundName = "";
-
     const channel = interaction.member.voice.channel;
     if (!channel) {
       return interaction.reply("You must be in a voice channel!");
     }
 
-    const filePath = path.join(__dirname, "sounds", `${soundName}.mp3`);
-    if (!fs.existsSync(filePath)) {
-      return interaction.reply(`Sound \`${soundName}\` does not exist.`);
-    }
-
-    await interaction.reply(`Playing **${soundName}**`);
+    const filePath = getRandomSound();
 
     const connection = joinVoiceChannel({
       channelId: channel.id,
