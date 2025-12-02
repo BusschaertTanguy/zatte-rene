@@ -24,9 +24,6 @@ RUN apt-get update && \
     apt-get install -y \
     ffmpeg \
     libopus0 \
-    libopus-dev \
-    libsodium23 \
-    libsodium-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy built app and node_modules
