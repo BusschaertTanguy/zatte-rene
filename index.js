@@ -92,13 +92,13 @@ client.on("interactionCreate", async (interaction) => {
       });
 
       player.on("error", async (err) => {
-        await interaction.reply("Kem een probleem Pol, kziew er a.");
+        await interaction.reply("Kem een probleem Pol, kzwier et a.");
         console.error("Audio error:", err);
         connection.destroy();
       });
     }
   } catch (error) {
-    await interaction.reply("Kem een probleem Pol, kziew er a.");
+    await interaction.reply("Kem een probleem Pol, kzwier et a.");
     console.error(error);
   }
 });
